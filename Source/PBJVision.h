@@ -78,6 +78,7 @@ extern NSString * const PBJVisionVideoThumbnailKey;
 @property (nonatomic) PBJFlashMode flashMode; // flash and torch
 
 @property (nonatomic) PBJOutputFormat outputFormat;
+@property (nonatomic) NSURL *outputURL;
 
 // preview
 

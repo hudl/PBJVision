@@ -155,6 +155,7 @@ enum
 @synthesize outputFormat = _outputFormat;
 @synthesize context = _context;
 @synthesize presentationFrame = _presentationFrame;
+@synthesize outputURL = _outputURL;
 
 #pragma mark - singleton
 
@@ -1102,8 +1103,12 @@ typedef void (^PBJVisionBlock)();
         if (_flags.recording || _flags.paused)
             return;
 
-        NSString *outputPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"video.mp4"];
-        _outputURL = [NSURL fileURLWithPath:outputPath];
+        if (_outputURL == nil)
+        {
+            NSString *tempPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"video.mp4"];
+            _outputURL = [NSURL fileURLWithPath:tempPath];
+        }
+        NSString *outputPath = [_outputURL path];
         if ([[NSFileManager defaultManager] fileExistsAtPath:outputPath]) {
             NSError *error = nil;
             if (![[NSFileManager defaultManager] removeItemAtPath:outputPath error:&error]) {
