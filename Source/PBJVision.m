@@ -759,13 +759,12 @@ typedef void (^PBJVisionBlock)();
         }
         
         if (![_captureSession isRunning]) {
-            [_captureSession startRunning];
-            
             [self _enqueueBlockOnMainQueue:^{
-                if ([_delegate respondsToSelector:@selector(visionSessionDidStart:)]) {
-                    [_delegate visionSessionDidStart:self];
+                if ([_delegate respondsToSelector:@selector(visionSessionWillStart:)]) {
+                    [_delegate visionSessionWillStart:self];
                 }
             }];
+            [_captureSession startRunning];
             DLog(@"capture session running");
         }
         _flags.previewRunning = YES;
