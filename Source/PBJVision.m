@@ -356,6 +356,7 @@ enum
     }
     
     [self _destroyGL];
+    [self _destroyCamera];
 }
 
 #pragma mark - queue helper methods
@@ -626,7 +627,7 @@ typedef void (^PBJVisionBlock)();
 
     // setup input/output
 
-    if (newCaptureOutput == _captureOutputVideo) {
+    if (newCaptureOutput && newCaptureOutput == _captureOutputVideo) {
 
         // setup video connection
         AVCaptureConnection *videoConnection = [_captureOutputVideo connectionWithMediaType:AVMediaTypeVideo];
@@ -695,7 +696,7 @@ typedef void (^PBJVisionBlock)();
         
         }
         
-    } else if (newCaptureOutput == _captureOutputPhoto) {
+    } else if (newCaptureOutput && newCaptureOutput == _captureOutputPhoto) {
     
         // specify photo preset
         sessionPreset = AVCaptureSessionPresetPhoto;
@@ -1892,14 +1893,14 @@ typedef void (^PBJVisionBlock)();
 
     static GLfloat vertices[8];
 
-    vertices[0] = -widthScale;
-    vertices[1] = -heightScale;
-    vertices[2] = widthScale;
-    vertices[3] = -heightScale;
-    vertices[4] = -widthScale;
-    vertices[5] = heightScale;
-    vertices[6] = widthScale;
-    vertices[7] = heightScale;
+    vertices[0] = (GLfloat) -widthScale;
+    vertices[1] = (GLfloat) -heightScale;
+    vertices[2] = (GLfloat) widthScale;
+    vertices[3] = (GLfloat) -heightScale;
+    vertices[4] = (GLfloat) -widthScale;
+    vertices[5] = (GLfloat) heightScale;
+    vertices[6] = (GLfloat) widthScale;
+    vertices[7] = (GLfloat) heightScale;
 
     static const GLfloat textureCoordinates[] = {
         0.0f, 1.0f,
